@@ -1,0 +1,63 @@
+<div class="project-list-root space-y-4 p-8 bg-gray-100 min-h-screen">
+
+  <h1 class="text-3xl font-bold mb-6">{{ title }}</h1>
+
+  <!-- Ajouter un projet -->
+  <app-add-project (projectCreated)="addNewProject($event)"></app-add-project>
+
+  <hr class="my-4">
+
+  <!-- Dashboard -->
+  <app-dashboard [projects]="projects"></app-dashboard>
+
+  <!-- Recherche -->
+  <input [(ngModel)]="searchTerm"
+         placeholder="Rechercher un projet"
+         class="border p-2 rounded mb-4 w-full"/>
+
+  <div *ngIf="filteredProjects().length === 0">
+    Aucun projet trouvé
+  </div>
+
+  <div class="project-grid">
+    <div *ngFor="let project of filteredProjects()"
+         class="project-card bg-white shadow rounded p-4 space-y-2">
+
+      <h2 class="text-xl font-bold">{{ project.name }}</h2>
+      <p><b>Description :</b> {{ project.description }}</p>
+      <p><b>Date début :</b> {{ project.dateDeb | friendlyDate }}</p>
+      <p><b>Date fin :</b> {{ project.dateFin | friendlyDate }}</p>
+      <p>
+        <b>Statut :</b>
+        <span [ngClass]="{
+          'text-green-600': project.status==='Terminé',
+          'text-yellow-500': project.status==='En cours',
+          'text-gray-500': project.status==='En attente'
+        }">{{ project.status | statusEmoji }}</span>
+      </p>
+
+      <div class="project-actions">
+        <button (click)="selectProject(project)" class="btn-primary">Voir les détails</button>
+        <button (click)="startEdit(project)" class="btn-primary bg-yellow-500">
+          Modifier
+        </button>
+      </div>
+
+      <app-task-list [tasks]="project.tasks"></app-task-list>
+
+    </div>
+  </div>
+
+  <div *ngIf="editingProject" class="mt-6">
+    <app-edit-project
+      [project]="editingProject"
+      (cancelEdit)="cancelEdit()"
+      (saveEdit)="saveEdit($event)">
+    </app-edit-project>
+  </div>
+
+  <div *ngIf="selectedProject">
+    <app-project-detail [project]="selectedProject"></app-project-detail>
+  </div>
+
+</div>

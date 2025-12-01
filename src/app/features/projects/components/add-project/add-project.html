@@ -1,0 +1,109 @@
+<p>add-project works!</p>
+<div class="add-project-container bg-white p-6 rounded shadow-md w-full max-w-lg mx-auto">
+
+  <h2 class="text-2xl font-bold mb-4">Ajouter un projet</h2>
+
+  <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)" class="space-y-4">
+
+    <!-- Nom du projet -->
+    <div>
+      <label class="block font-semibold">Nom du projet :</label>
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="project.name"
+        required
+        minlength="4"
+        class="w-full p-2 border rounded"
+        [ngClass]="{'border-red-500': projectForm.controls['name']?.invalid && projectForm.controls['name']?.touched}"
+      />
+      <div *ngIf="projectForm.controls['name']?.invalid && projectForm.controls['name']?.touched" class="text-red-500 text-sm mt-1">
+        Le nom du projet est obligatoire et doit contenir au moins 4 caractères.
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label class="block font-semibold">Description :</label>
+      <textarea
+        name="description"
+        [(ngModel)]="project.description"
+        required
+        class="w-full p-2 border rounded"
+        [ngClass]="{'border-red-500': projectForm.controls['description']?.invalid && projectForm.controls['description']?.touched}"
+      ></textarea>
+      <div *ngIf="projectForm.controls['description']?.invalid && projectForm.controls['description']?.touched" class="text-red-500 text-sm mt-1">
+        La description est obligatoire.
+      </div>
+    </div>
+
+    <!-- Date de début -->
+    <div>
+      <label class="block font-semibold">Date de début :</label>
+      <input
+        type="date"
+        name="dateDeb"
+        [(ngModel)]="project.dateDeb"
+        required
+        class="w-full p-2 border rounded"
+        [ngClass]="{'border-red-500': projectForm.controls['dateDeb']?.invalid && projectForm.controls['dateDeb']?.touched}"
+      />
+      <div *ngIf="projectForm.controls['dateDeb']?.invalid && projectForm.controls['dateDeb']?.touched" class="text-red-500 text-sm mt-1">
+        La date de début est obligatoire.
+      </div>
+    </div>
+
+    <!-- Date de fin -->
+    <div>
+      <label class="block font-semibold">Date de fin :</label>
+      <input
+        type="date"
+        name="dateFin"
+        [(ngModel)]="project.dateFin"
+        required
+        class="w-full p-2 border rounded"
+        [ngClass]="{'border-red-500': projectForm.controls['dateFin']?.invalid && projectForm.controls['dateFin']?.touched}"
+      />
+      <div *ngIf="projectForm.controls['dateFin']?.invalid && projectForm.controls['dateFin']?.touched" class="text-red-500 text-sm mt-1">
+        La date de fin est obligatoire.
+      </div>
+    </div>
+
+    <!-- Statut -->
+    <div>
+      <label class="block font-semibold">Statut :</label>
+      <select
+        name="status"
+        [(ngModel)]="project.status"
+        required
+        class="w-full p-2 border rounded"
+        [ngClass]="{'border-red-500': projectForm.controls['status']?.invalid && projectForm.controls['status']?.touched}"
+      >
+        <option value="" disabled>-- Sélectionner un statut --</option>
+        <option>En cours</option>
+        <option>En attente</option>
+        <option>Terminé</option>
+      </select>
+      <div *ngIf="projectForm.controls['status']?.invalid && projectForm.controls['status']?.touched" class="text-red-500 text-sm mt-1">
+        Le statut est obligatoire.
+      </div>
+    </div>
+
+    <!-- Boutons -->
+    <div class="flex gap-2 mt-4">
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded" [disabled]="projectForm.invalid">
+        💾 Enregistrer
+      </button>
+      <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded" (click)="onReset(projectForm)">
+        🔄 Réinitialiser
+      </button>
+    </div>
+
+  </form>
+
+  <!-- Message de confirmation -->
+  <div *ngIf="message" class="mt-4 text-green-600 font-semibold">
+    {{ message }}
+  </div>
+
+</div>

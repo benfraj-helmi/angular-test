@@ -1,0 +1,12 @@
+<div class="bg-gray-50 p-4 rounded shadow mt-4">
+  <h2 class="text-xl font-bold">{{ project.name }}</h2>
+  <p>{{ project.description }}</p>
+  <app-status-badge [status]="project.status"></app-status-badge>
+
+  <p>Progression: {{ getProgress() | number:'1.0-0' }}%</p>
+  <div class="w-full bg-gray-200 h-4 rounded">
+    <div class="bg-blue-500 h-4 rounded" [style.width.%]="getProgress()"></div>
+  </div>
+
+  <app-task-list [tasks]="project.tasks"></app-task-list>
+</div>

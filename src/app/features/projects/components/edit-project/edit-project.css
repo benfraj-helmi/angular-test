@@ -1,0 +1,3 @@
+/* optional: tu peux laisser vide car Tailwind gère le style.
+   Si tu veux ajouter une petite ombre personnalisée : */
+:host { display: block; }

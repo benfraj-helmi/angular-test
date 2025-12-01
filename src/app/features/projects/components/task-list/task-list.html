@@ -1,0 +1,9 @@
+<div class="space-y-2">
+  <div *ngIf="tasks.length === 0">Aucune tâche</div>
+  <div *ngFor="let task of tasks" appHighlightStatus="{{task.status}}" class="p-2 rounded">
+    <p><span class="font-semibold">Titre:</span> <span [ngClass]="task.priority | priorityColor">{{ task.title }}</span></p>
+    <p><span class="font-semibold">Priorité:</span> {{ task.priority }}</p>
+    <p><span class="font-semibold">Statut:</span> {{ task.status | statusEmoji }}</p>
+    <button (click)="changeStatus(task)" class="mt-1 bg-gray-300 px-2 py-1 rounded">Changer statut</button>
+  </div>
+</div>

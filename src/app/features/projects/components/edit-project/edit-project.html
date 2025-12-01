@@ -1,0 +1,47 @@
+<div class="edit-container">
+  <h2 class="text-xl font-bold mb-4">Modifier le projet</h2>
+
+  <form #f="ngForm" (ngSubmit)="onSave(f)">
+
+    <!-- Nom -->
+    <label class="block font-semibold">Nom du projet :</label>
+    <input
+      [(ngModel)]="project.name"
+      name="name"
+      required
+      minlength="4"
+      class="field"
+      [ngClass]="{ 'invalid' : f.controls['name']?.invalid && f.controls['name']?.touched }"
+    />
+
+    <div class="error" *ngIf="f.controls['name']?.invalid && f.controls['name']?.touched">
+      Le nom doit contenir au moins 4 caractères.
+    </div>
+
+    <!-- Description -->
+    <label class="block font-semibold mt-3">Description :</label>
+    <textarea [(ngModel)]="project.description" name="description" class="field"></textarea>
+
+    <!-- Dates -->
+    <label class="block font-semibold mt-3">Date début :</label>
+    <input [(ngModel)]="project.dateDeb" name="dateDeb" type="date" class="field"/>
+
+    <label class="block font-semibold mt-3">Date fin :</label>
+    <input [(ngModel)]="project.dateFin" name="dateFin" type="date" class="field"/>
+
+    <!-- Statut -->
+    <label class="block font-semibold mt-3">Statut :</label>
+    <select [(ngModel)]="project.status" name="status" class="field">
+      <option>En cours</option>
+      <option>En attente</option>
+      <option>Terminé</option>
+    </select>
+
+    <!-- Boutons -->
+    <div class="mt-4 flex gap-2">
+      <button class="btn-save" type="submit" [disabled]="f.invalid">💾 Sauvegarder</button>
+      <button type="button" class="btn-cancel" (click)="onCancel()">Annuler</button>
+    </div>
+
+  </form>
+</div>
