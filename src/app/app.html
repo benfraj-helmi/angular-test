@@ -1,1 +1,17 @@
-<app-project-list></app-project-list>
+<nav class="p-4 bg-gray-800 text-white flex gap-6">
+  <button (click)="show='list'" [class.font-bold]="show==='list'">Projects</button>
+  <button (click)="show='add'" [class.font-bold]="show==='add'">Add Project</button>
+  <button (click)="show='dashboard'" [class.font-bold]="show==='dashboard'">Dashboard</button>
+  <button (click)="show='contact'" [class.font-bold]="show==='contact'">Contact Form</button>
+</nav>
+
+<div class="p-6">
+  <!-- Passer la liste des projets -->
+  <app-project-list *ngIf="show==='list'" [projects]="projects"></app-project-list>
+
+  <!-- Écouter l'événement projectCreated pour ajouter le projet -->
+  <app-add-project *ngIf="show==='add'" (projectCreated)="addNewProject($event)"></app-add-project>
+
+  <app-dashboard *ngIf="show==='dashboard'" [projects]="projects"></app-dashboard>
+  <app-contact-form *ngIf="show==='contact'"></app-contact-form>
+</div>

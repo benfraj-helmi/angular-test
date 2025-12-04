@@ -11,24 +11,15 @@ import { CommonModule } from '@angular/common';
 })
 export class AddProject {
 
-  @Output() projectCreated = new EventEmitter<any>(); 
+  @Output() projectCreated = new EventEmitter<any>();
 
-  project = {
-    name: '',
-    description: '',
-    dateDeb: '',
-    dateFin: '',
-    status: ''
-  };
-
+  project = { name: '', description: '', dateDeb: '', dateFin: '', status: '' };
   message = '';
 
   onSubmit(form: any) {
     if (form.valid) {
-      this.projectCreated.emit({ ...this.project });  
-
+      this.projectCreated.emit({ ...this.project });
       this.message = `Le projet « ${this.project.name} » a été créé avec succès !`;
-
       form.reset();
     }
   }

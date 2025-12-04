@@ -1,0 +1,11 @@
+/* Classe pour indiquer qu'un champ est invalide */
+.is-invalid {
+  border-color: #dc2626; /* rouge */
+  background-color: #fee2e2; /* léger fond rouge */
+}
+
+/* Optionnel: animation douce au focus */
+input:focus.is-invalid {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+}
